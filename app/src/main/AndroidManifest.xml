@@ -13,17 +13,17 @@
         android:theme="@style/Theme.JuFood"
         tools:targetApi="31">
         <activity
-            android:name=".activities.AddPlanActivity"
+            android:name=".presentation.addplan.AddPlanActivity"
             android:exported="false"
             android:theme="@style/Theme.JuFood">
         </activity>
         <activity
-            android:name=".activities.recipeInfo.RecipeActivity"
+            android:name=".presentation.recipeInfo.RecipeActivity"
             android:exported="false"
             android:theme="@style/Theme.JuFood">
         </activity>
         <activity
-            android:name=".activities.recipeCreate.CreateRec"
+            android:name=".presentation.createRecipe.CreateRec"
             android:exported="false"
             android:theme="@style/Theme.JuFood">
         </activity>
@@ -38,7 +38,7 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.JuFood">
             <intent-filter>

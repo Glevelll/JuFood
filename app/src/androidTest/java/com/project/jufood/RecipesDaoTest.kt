@@ -3,11 +3,11 @@ package com.project.jufood
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.project.jufood.data.Ingredients
-import com.project.jufood.data.RecipeType
-import com.project.jufood.data.RecipesDatabase
-import com.project.jufood.data.daos.RecipesDao
-import com.project.jufood.data.entities.Recipes
+import com.project.jufood.data.local.Ingredients
+import com.project.jufood.data.local.utils.RecipeType
+import com.project.jufood.data.local.RecipesDatabase
+import com.project.jufood.data.local.daos.RecipesDao
+import com.project.jufood.data.local.entities.Recipes
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 
