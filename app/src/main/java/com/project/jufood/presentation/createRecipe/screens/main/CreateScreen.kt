@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.jufood.data.local.Ingredients
 import com.project.jufood.data.local.entities.Created
+import com.project.jufood.domain.util.convertImageBitmapToByteArray
 import com.project.jufood.presentation.createRecipe.CreateRecipeViewModel
 import com.project.jufood.presentation.createRecipe.screens.main.components.IngredientCard
 import java.io.ByteArrayOutputStream
@@ -407,10 +408,4 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             Text(text = "Добавить")
         }
     }
-}
-
-fun convertImageBitmapToByteArray(bitmap: ImageBitmap): ByteArray {
-    val stream = ByteArrayOutputStream()
-    bitmap.asAndroidBitmap().compress(Bitmap.CompressFormat.PNG, 100, stream)
-    return stream.toByteArray()
 }

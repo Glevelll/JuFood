@@ -70,7 +70,7 @@ fun AppNavigation(db: RecipesDatabase, context: Context, activity: Activity) {
                RecipesScreen(db, context)
            }
            composable(route = Screens.MainScreen.name) {
-               MainScreen(db, context)
+               MainScreen(context)
            }
            composable(route = Screens.ProfileScreen.name) {
                ProfileScreen(db, context, activity)

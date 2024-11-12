@@ -1,4 +1,4 @@
-package com.project.jufood.presentation.main.screens.profile.content
+package com.project.jufood.presentation.main.screens.profile.content.products
 
 import android.app.Activity
 import android.widget.Toast

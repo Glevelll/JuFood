@@ -1,7 +1,8 @@
-package com.project.jufood.presentation.main.screens.profile.content
+package com.project.jufood.presentation.main.screens.profile.content.mine
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,33 +19,36 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
 import com.project.jufood.data.local.RecipesDatabase
-import com.project.jufood.data.local.entities.Recipes
+import com.project.jufood.data.local.entities.Created
+import com.project.jufood.domain.util.convertByteArrayToImageBitmap
 import kotlinx.coroutines.launch
 
 @Composable
-fun FavouriteContent(db: RecipesDatabase, context: Context) {
-    val favoriteRecipes by db.recipesDao().getFavoriteRecipes().observeAsState(initial = emptyList())
+fun MineContent(db: RecipesDatabase, context: Context) {
+    val mineItems by db.createdDao().getAllCreated().observeAsState(initial = emptyList())
 
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
@@ -52,11 +56,11 @@ fun FavouriteContent(db: RecipesDatabase, context: Context) {
         item {
             Spacer(modifier = Modifier.height(10.dp))
         }
-        val chunkedFavoriteRecipes = favoriteRecipes.chunked(2)
-        items(chunkedFavoriteRecipes) { rowItems ->
+        val chunkedMineItems = mineItems.chunked(2)
+        items(chunkedMineItems) { rowItems ->
             Row(Modifier.fillMaxWidth()) {
-                rowItems.forEach { recipe ->
-                    FavoriteCard(recipe, context, db)
+                rowItems.forEach { item ->
+                    MineCard(item, context, db)
                 }
                 repeat(2 - rowItems.size) {
                     Spacer(modifier = Modifier.weight(1f))
@@ -67,9 +71,13 @@ fun FavouriteContent(db: RecipesDatabase, context: Context) {
 }
 
 
+
 @Composable
-fun FavoriteCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
-    val favoriteColor = if (recipe.favorite) Color.Red else Color.White
+fun MineCard(recipe: Created, context: Context, db: RecipesDatabase) {
+    val imageBitmap by remember(recipe.id_cre) {
+        mutableStateOf(recipe.image?.let { convertByteArrayToImageBitmap(it) })
+    }
+
     val coroutineScope = rememberCoroutineScope()
 
     Card(
@@ -79,7 +87,8 @@ fun FavoriteCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
             .clip(RoundedCornerShape(10.dp))
             .clickable {
                 val intent = Intent(context, RecipeActivity::class.java)
-                intent.putExtra("recipe", recipe.id_rec)
+                intent.putExtra("recipe", recipe.id_cre)
+                intent.putExtra("isCreated", true)
                 context.startActivity(intent)
             },
         colors = CardDefaults.cardColors(
@@ -87,30 +96,31 @@ fun FavoriteCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
         )
     ) {
         Box {
+            imageBitmap?.let {
+                Image(
+                    bitmap = it,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(160.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp)),
+                    contentScale = ContentScale.Crop
+                )
+            }
             Image(
-                painter = painterResource(id = recipe.imageResId),
-                contentDescription = null,
-                modifier = Modifier
-                    .height(160.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(10.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Image(
-                imageVector = Icons.Default.Favorite,
+                imageVector = Icons.Default.Close,
                 contentDescription = null,
                 modifier = Modifier
                     .size(35.dp)
                     .align(Alignment.TopEnd)
                     .padding(4.dp)
                     .clickable {
-                        val updatedFavoriteStatus = !recipe.favorite
                         coroutineScope.launch {
-                            db.recipesDao().updateFavoriteStatus(recipe.id_rec, updatedFavoriteStatus)
+                            db.createdDao().deleteCreated(recipe)
                         }
                     },
                 contentScale = ContentScale.Fit,
-                colorFilter = ColorFilter.tint(favoriteColor)
+                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.Black)
             )
         }
         Column(

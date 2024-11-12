@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.project.jufood.R
 import com.project.jufood.data.local.entities.Created
 import com.project.jufood.data.local.entities.Recipes
-import com.project.jufood.presentation.main.screens.profile.content.convertByteArrayToImageBitmap
+import com.project.jufood.domain.util.convertByteArrayToImageBitmap
 
 @Composable
 fun PlanCard(item: Any) {

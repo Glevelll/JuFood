@@ -1,4 +1,4 @@
-package com.project.jufood.domain
+package com.project.jufood.domain.util
 
 val pages = listOf(
     "Календарь",

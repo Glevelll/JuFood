@@ -23,7 +23,7 @@ import com.project.jufood.presentation.addplan.AddPlanActivity
 import com.project.jufood.data.local.RecipesDatabase
 
 @Composable
-fun MainScreen(db: RecipesDatabase, context: Context) {
+fun MainScreen(context: Context) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

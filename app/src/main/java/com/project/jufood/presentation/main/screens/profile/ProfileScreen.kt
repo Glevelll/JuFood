@@ -29,9 +29,9 @@ import com.project.jufood.presentation.createRecipe.CreateRec
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.presentation.main.screens.profile.components.ActionChips
 import com.project.jufood.presentation.main.screens.profile.content.CalendarContent
-import com.project.jufood.presentation.main.screens.profile.content.FavouriteContent
-import com.project.jufood.presentation.main.screens.profile.content.MineContent
-import com.project.jufood.presentation.main.screens.profile.content.ProductsContent
+import com.project.jufood.presentation.main.screens.profile.content.favorite.FavouriteContent
+import com.project.jufood.presentation.main.screens.profile.content.mine.MineContent
+import com.project.jufood.presentation.main.screens.profile.content.products.ProductsContent
 
 @Composable
 fun ProfileScreen(db: RecipesDatabase, context: Context, activity: Activity) {

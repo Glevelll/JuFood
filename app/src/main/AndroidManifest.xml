@@ -27,16 +27,6 @@
             android:exported="false"
             android:theme="@style/Theme.JuFood">
         </activity>
-<!--        <activity-->
-<!--            android:name=".greetings.Greetings"-->
-<!--            android:exported="true"-->
-<!--            android:theme="@style/Theme.JuFood">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true"

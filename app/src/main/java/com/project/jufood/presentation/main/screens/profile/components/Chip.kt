@@ -25,7 +25,9 @@ fun Chip(
 ) {
     val isSelected = selected == title
 
-    val background = if (isSelected) Color(android.graphics.Color.parseColor("#BFD05F")) else Color(android.graphics.Color.parseColor("#F4DC8C"))
+    val background = if (isSelected) Color(android.graphics.Color.parseColor("#BFD05F"))
+    else Color(android.graphics.Color.parseColor("#F4DC8C"))
+
     val contentColor = Color.Black
 
     Box(

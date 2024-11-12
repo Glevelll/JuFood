@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.project.jufood.domain.pages
+import com.project.jufood.domain.util.pages
 
 @Composable
 fun ActionChips(selected: String, onSelected: (String) -> Unit) {

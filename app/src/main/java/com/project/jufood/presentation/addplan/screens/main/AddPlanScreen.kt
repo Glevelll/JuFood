@@ -65,6 +65,7 @@ fun AddPlanScreen(activity: Activity, db: RecipesDatabase) {
     val createdRecipes by db.createdDao().getAllCreated().observeAsState(listOf())
     val products by db.productsDao().getAllProducts().observeAsState(listOf())
     val coroutineScope = rememberCoroutineScope()
+
     val filteredRecipes = filRecipes.filter { recipe ->
         recipe.ingredients.any { ingredient ->
             products.any { product ->
@@ -72,6 +73,7 @@ fun AddPlanScreen(activity: Activity, db: RecipesDatabase) {
             }
         }
     }
+
     val allRecipes = favoriteRecipes + createdRecipes + filteredRecipes
 
     val buttonStates = remember { mutableStateListOf<Boolean>() }

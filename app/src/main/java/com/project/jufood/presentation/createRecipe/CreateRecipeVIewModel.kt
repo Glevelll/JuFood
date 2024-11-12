@@ -13,11 +13,11 @@ class CreateRecipeViewModel(private val db: RecipesDatabase) : ViewModel() {
     val ingredients: StateFlow<List<Pair<String, String>>> get() = _ingredients
 
     fun addIngredient(ingredient: String, quantity: String) {
-        _ingredients.value = _ingredients.value + (ingredient to quantity)
+        _ingredients.value += (ingredient to quantity)
     }
 
     fun removeIngredient(ingredient: String, quantity: String) {
-        _ingredients.value = _ingredients.value - (ingredient to quantity)
+        _ingredients.value -= (ingredient to quantity)
     }
 
     fun insertRecipe(recipe: Created, onSuccess: () -> Unit) {
