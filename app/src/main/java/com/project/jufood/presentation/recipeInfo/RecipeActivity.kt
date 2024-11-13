@@ -61,14 +61,18 @@ import com.project.jufood.presentation.recipeInfo.screens.CreatedScreen
 import com.project.jufood.presentation.recipeInfo.screens.RecipeScreen
 import com.project.jufood.ui.theme.JuFoodTheme
 import kotlinx.coroutines.launch
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
-class RecipeActivity : ComponentActivity() {
-    private lateinit var db: RecipesDatabase
+class RecipeActivity : ComponentActivity(), DIAware {
+    override val di: DI by closestDI()
+
     private val viewModel: RecipeViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                db = Room.databaseBuilder(applicationContext, RecipesDatabase::class.java, "recipes_db").build()
-                @Suppress("UNCHECKED_CAST")
+                val db: RecipesDatabase by di.instance()
                 return RecipeViewModel(db) as T
             }
         }

@@ -8,12 +8,16 @@ import androidx.room.Room
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.presentation.addplan.screens.main.AddPlanScreen
 import com.project.jufood.ui.theme.JuFoodTheme
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
-class AddPlanActivity : ComponentActivity() {
-    private lateinit var db: RecipesDatabase
+class AddPlanActivity : ComponentActivity(), DIAware {
+    override val di: DI by closestDI()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = Room.databaseBuilder(applicationContext, RecipesDatabase::class.java, "recipes_db").build()
+        val db: RecipesDatabase by di.instance()
         window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.parseColor("#FFF0E1")))
         setContent {
             JuFoodTheme {

@@ -32,14 +32,18 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.project.jufood.presentation.createRecipe.screens.main.CreateScreen
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
-class CreateRec : ComponentActivity() {
-    private lateinit var db: RecipesDatabase
+class CreateRec : ComponentActivity(), DIAware {
+    override val di: DI by closestDI()
+    private val db: RecipesDatabase by di.instance()
     private val viewModel: CreateRecipeViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                db = Room.databaseBuilder(applicationContext, RecipesDatabase::class.java, "recipes_db").build()
-                @Suppress("UNCHECKED_CAST")
+                val db: RecipesDatabase by di.instance()
                 return CreateRecipeViewModel(db) as T
             }
         }
@@ -47,7 +51,6 @@ class CreateRec : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = Room.databaseBuilder(applicationContext, RecipesDatabase::class.java, "recipes_db").build()
         window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.parseColor("#FFF0E1")))
         setContent {
             JuFoodTheme {

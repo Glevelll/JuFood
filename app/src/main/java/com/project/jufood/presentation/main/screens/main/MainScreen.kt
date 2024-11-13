@@ -3,11 +3,14 @@ package com.project.jufood.presentation.main.screens.main
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,16 +38,17 @@ fun MainScreen(context: Context) {
             },
             modifier = Modifier
                 .padding(16.dp)
-                .height(60.dp)
-                .fillMaxWidth()
+                .size(250.dp)
                 .background(Color(android.graphics.Color.parseColor("#FFF0E1"))),
-            shape = RoundedCornerShape(10.dp),
+            shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFBFD05F)
             )
         ) {
-            Text(text = "Составить план",
-                fontSize = 30.sp)
+            Text(
+                text = "Составить план",
+                fontSize = 30.sp
+            )
         }
     }
 }
