@@ -5,7 +5,9 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.room.Room
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.presentation.main.navigation.AppNavigation
 import com.project.jufood.ui.theme.JuFoodTheme
@@ -17,14 +19,22 @@ import org.kodein.di.instance
 class MainActivity : ComponentActivity(), DIAware {
     override val di: DI by closestDI()
 
+    private val viewModel: MainViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                val db: RecipesDatabase by di.instance()
+                return MainViewModel(db) as T
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val db: RecipesDatabase by di.instance()
         window.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFF0E1")))
         setContent {
             JuFoodTheme {
-                AppNavigation(db, this, this@MainActivity)
+                AppNavigation(viewModel, this, this@MainActivity)
             }
         }
     }

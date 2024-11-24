@@ -1,11 +1,11 @@
 package com.project.jufood.data.local.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.project.jufood.data.local.entities.Created
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CreatedDao {
@@ -14,7 +14,7 @@ interface CreatedDao {
     suspend fun insertCreated(created: Created)
 
     @Query("SELECT * FROM created")
-    fun getAllCreated(): LiveData<List<Created>>
+    fun getAllCreated(): Flow<List<Created>>
 
     @Query("SELECT * FROM created WHERE name = :name")
     suspend fun getCreatedByName(name: String): Created?

@@ -1,11 +1,11 @@
 package com.project.jufood.data.local.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.project.jufood.data.local.entities.Products
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductsDao {
@@ -16,11 +16,11 @@ interface ProductsDao {
     suspend fun deleteProduct(product: Products)
 
     @Query("SELECT * FROM products")
-    fun getAllProducts(): LiveData<List<Products>>
+    fun getAllProducts(): Flow<List<Products>>
 
     @Query("SELECT * FROM products WHERE name LIKE :keyword OR date_prod LIKE :keyword")
-    fun searchProducts(keyword: String): LiveData<List<Products>>
+    fun searchProducts(keyword: String): Flow<List<Products>>
 
     @Query("SELECT * FROM products WHERE name LIKE :keyword AND date_prod LIKE :keyword")
-    fun searchProductsByNameAndDate(keyword: String): LiveData<List<Products>>
+    fun searchProductsByNameAndDate(keyword: String): Flow<List<Products>>
 }

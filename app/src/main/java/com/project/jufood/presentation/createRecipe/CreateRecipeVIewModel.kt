@@ -8,19 +8,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class CreateRecipeViewModel(private val db: RecipesDatabase) : ViewModel() {
+class CreateRecipeViewModel(private val db: RecipesDatabase) : ViewModel(), CreateRecipeInterface {
     private val _ingredients = MutableStateFlow<List<Pair<String, String>>>(emptyList())
     val ingredients: StateFlow<List<Pair<String, String>>> get() = _ingredients
 
-    fun addIngredient(ingredient: String, quantity: String) {
+    override fun addIngredient(ingredient: String, quantity: String) {
         _ingredients.value += (ingredient to quantity)
     }
 
-    fun removeIngredient(ingredient: String, quantity: String) {
+    override fun removeIngredient(ingredient: String, quantity: String) {
         _ingredients.value -= (ingredient to quantity)
     }
 
-    fun insertRecipe(recipe: Created, onSuccess: () -> Unit) {
+    override fun insertRecipe(recipe: Created, onSuccess: () -> Unit) {
         viewModelScope.launch {
             db.createdDao().insertCreated(recipe)
             onSuccess()

@@ -17,14 +17,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.project.jufood.data.local.RecipesDatabase
+import com.project.jufood.presentation.main.MainViewModel
 import com.project.jufood.presentation.main.screens.main.MainScreen
 import com.project.jufood.presentation.main.screens.profile.ProfileScreen
 import com.project.jufood.presentation.main.screens.recipes.RecipesScreen
 
 
 @Composable
-fun AppNavigation(db: RecipesDatabase, context: Context, activity: Activity) {
+fun AppNavigation(viewModel: MainViewModel, context: Context, activity: Activity) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -67,13 +67,13 @@ fun AppNavigation(db: RecipesDatabase, context: Context, activity: Activity) {
                .padding(paddingValues)
        ) {
            composable(route = Screens.RecipesScreen.name) {
-               RecipesScreen(db, context)
+               RecipesScreen(viewModel, context)
            }
            composable(route = Screens.MainScreen.name) {
                MainScreen(context)
            }
            composable(route = Screens.ProfileScreen.name) {
-               ProfileScreen(db, context, activity)
+               ProfileScreen(viewModel, context, activity)
            }
        }
     }

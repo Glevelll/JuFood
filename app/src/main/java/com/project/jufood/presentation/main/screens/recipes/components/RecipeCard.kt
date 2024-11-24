@@ -31,13 +31,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.data.local.entities.Recipes
+import com.project.jufood.presentation.main.MainViewModel
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
 import kotlinx.coroutines.launch
 
 @Composable
-fun RecipeCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
+fun RecipeCard(recipe: Recipes, context: Context, viewModel: MainViewModel) {
     val favoriteIconColor = if (recipe.favorite) Color.Red else Color.White
     val coroutineScope = rememberCoroutineScope()
 
@@ -75,9 +75,7 @@ fun RecipeCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
                     .clickable {
                         val updatedFavoriteStatus = !recipe.favorite
                         coroutineScope.launch {
-                            db
-                                .recipesDao()
-                                .updateFavoriteStatus(recipe.id_rec, updatedFavoriteStatus)
+                            viewModel.toggleFavoriteStatusRecipe(recipe.id_rec, updatedFavoriteStatus)
                         }
                     },
                 contentScale = ContentScale.Fit,

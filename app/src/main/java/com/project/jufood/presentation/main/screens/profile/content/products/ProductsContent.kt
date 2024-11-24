@@ -1,7 +1,6 @@
 package com.project.jufood.presentation.main.screens.profile.content.products
 
 import android.app.Activity
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -27,41 +26,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.project.jufood.data.local.RecipesDatabase
-import com.project.jufood.data.local.entities.Products
-import kotlinx.coroutines.launch
-import androidx.compose.runtime.livedata.observeAsState
+import com.project.jufood.presentation.main.MainViewModel
 
 @Composable
-fun ProductsContent(db: RecipesDatabase, activity: Activity) {
-    var text1 by remember { mutableStateOf(TextFieldValue("")) }
-    var text2 by remember { mutableStateOf(TextFieldValue("")) }
-    val products = remember { mutableStateListOf<Products>() }
-    val scope = rememberCoroutineScope()
-
-    val allProducts = db.productsDao().getAllProducts().observeAsState(emptyList())
-
-    LaunchedEffect(allProducts.value) {
-        products.clear()
-        products.addAll(allProducts.value)
-    }
+fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
+    val text1 by viewModel.text1.collectAsState()
+    val text2 by viewModel.text2.collectAsState()
+    val products by viewModel.products.collectAsState()
 
     Column(
         modifier = Modifier
@@ -80,7 +62,7 @@ fun ProductsContent(db: RecipesDatabase, activity: Activity) {
             ) {
                 TextField(
                     value = text1,
-                    onValueChange = { text1 = it },
+                    onValueChange = { viewModel.updateText1(it) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp)
@@ -114,11 +96,7 @@ fun ProductsContent(db: RecipesDatabase, activity: Activity) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     TextField(
                         value = text2,
-                        onValueChange = {
-                            if (it.text.matches(Regex("^\\d{0,2}(\\.\\d{0,2})?$"))) {
-                                text2 = it
-                            }
-                        },
+                        onValueChange = { viewModel.updateText2(it) },
                         modifier = Modifier
                             .weight(1f)
                             .height(55.dp)
@@ -142,32 +120,12 @@ fun ProductsContent(db: RecipesDatabase, activity: Activity) {
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                         placeholder = { Text(text = "дд.мм") }
                     )
-
                 }
             }
+
             IconButton(
-                onClick = {
-                    if (text1.text.isEmpty()) {
-                        Toast.makeText(activity, "Введите название продукта", Toast.LENGTH_SHORT).show()
-                        return@IconButton
-                    }
-                    if (text2.text.isEmpty()) {
-                        Toast.makeText(activity, "Введите дату", Toast.LENGTH_SHORT).show()
-                        return@IconButton
-                    }
-                    if (text2.text.length != 5) {
-                        Toast.makeText(activity, "Введите корректную дату в формате дд.мм", Toast.LENGTH_SHORT).show()
-                        return@IconButton
-                    }
-                    scope.launch {
-                        val newProduct = Products(name = text1.text, date_prod = text2.text)
-                        db.productsDao().insertProduct(newProduct)
-                        text1 = TextFieldValue("")
-                        text2 = TextFieldValue("")
-                    }
-                },
-                modifier = Modifier
-                    .padding(end = 8.dp)
+                onClick = { viewModel.addProduct(activity) },
+                modifier = Modifier.padding(end = 8.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
@@ -176,15 +134,15 @@ fun ProductsContent(db: RecipesDatabase, activity: Activity) {
                 )
             }
         }
+
         Spacer(modifier = Modifier.height(50.dp))
+
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
         ) {
             items(products) { product ->
                 ProductCard(product.name, product.date_prod) {
-                    scope.launch {
-                        db.productsDao().deleteProduct(product)
-                    }
+                    viewModel.deleteProduct(product)
                 }
             }
         }

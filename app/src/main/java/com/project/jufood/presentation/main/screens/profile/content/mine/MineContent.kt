@@ -2,7 +2,6 @@ package com.project.jufood.presentation.main.screens.profile.content.mine
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,31 +23,24 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
-import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.data.local.entities.Created
-import com.project.jufood.domain.util.convertByteArrayToImageBitmap
-import kotlinx.coroutines.launch
+import com.project.jufood.presentation.main.MainViewModel
 
 @Composable
-fun MineContent(db: RecipesDatabase, context: Context) {
-    val mineItems by db.createdDao().getAllCreated().observeAsState(initial = emptyList())
+fun MineContent(viewModel: MainViewModel, context: Context) {
+    val mineItems by viewModel.mineItems.collectAsState()
 
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
@@ -56,11 +48,12 @@ fun MineContent(db: RecipesDatabase, context: Context) {
         item {
             Spacer(modifier = Modifier.height(10.dp))
         }
+
         val chunkedMineItems = mineItems.chunked(2)
         items(chunkedMineItems) { rowItems ->
             Row(Modifier.fillMaxWidth()) {
                 rowItems.forEach { item ->
-                    MineCard(item, context, db)
+                    MineCard(item, context, viewModel)
                 }
                 repeat(2 - rowItems.size) {
                     Spacer(modifier = Modifier.weight(1f))
@@ -73,12 +66,8 @@ fun MineContent(db: RecipesDatabase, context: Context) {
 
 
 @Composable
-fun MineCard(recipe: Created, context: Context, db: RecipesDatabase) {
-    val imageBitmap by remember(recipe.id_cre) {
-        mutableStateOf(recipe.image?.let { convertByteArrayToImageBitmap(it) })
-    }
-
-    val coroutineScope = rememberCoroutineScope()
+fun MineCard(recipe: Created, context: Context, viewModel: MainViewModel) {
+    val imageBitmap = viewModel.convertImage(recipe.image)
 
     Card(
         modifier = Modifier
@@ -107,6 +96,7 @@ fun MineCard(recipe: Created, context: Context, db: RecipesDatabase) {
                     contentScale = ContentScale.Crop
                 )
             }
+
             Image(
                 imageVector = Icons.Default.Close,
                 contentDescription = null,
@@ -115,14 +105,13 @@ fun MineCard(recipe: Created, context: Context, db: RecipesDatabase) {
                     .align(Alignment.TopEnd)
                     .padding(4.dp)
                     .clickable {
-                        coroutineScope.launch {
-                            db.createdDao().deleteCreated(recipe)
-                        }
+                        viewModel.deleteCreated(recipe)
                     },
                 contentScale = ContentScale.Fit,
                 colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.Black)
             )
         }
+
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Top,

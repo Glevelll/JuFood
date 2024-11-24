@@ -23,8 +23,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,13 +38,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
-import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.data.local.entities.Recipes
+import com.project.jufood.presentation.main.MainViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun FavouriteContent(db: RecipesDatabase, context: Context) {
-    val favoriteRecipes by db.recipesDao().getFavoriteRecipes().observeAsState(initial = emptyList())
+fun FavouriteContent(viewModel: MainViewModel, context: Context) {
+    val favoriteRecipes by viewModel.favoriteRecipes.collectAsState()
 
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
@@ -52,11 +52,12 @@ fun FavouriteContent(db: RecipesDatabase, context: Context) {
         item {
             Spacer(modifier = Modifier.height(10.dp))
         }
+
         val chunkedFavoriteRecipes = favoriteRecipes.chunked(2)
         items(chunkedFavoriteRecipes) { rowItems ->
             Row(Modifier.fillMaxWidth()) {
                 rowItems.forEach { recipe ->
-                    FavoriteCard(recipe, context, db)
+                    FavoriteCard(recipe, context, viewModel)
                 }
                 repeat(2 - rowItems.size) {
                     Spacer(modifier = Modifier.weight(1f))
@@ -68,7 +69,7 @@ fun FavouriteContent(db: RecipesDatabase, context: Context) {
 
 
 @Composable
-fun FavoriteCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
+fun FavoriteCard(recipe: Recipes, context: Context, viewModel: MainViewModel) {
     val favoriteColor = if (recipe.favorite) Color.Red else Color.White
     val coroutineScope = rememberCoroutineScope()
 
@@ -106,7 +107,7 @@ fun FavoriteCard(recipe: Recipes, context: Context, db: RecipesDatabase) {
                     .clickable {
                         val updatedFavoriteStatus = !recipe.favorite
                         coroutineScope.launch {
-                            db.recipesDao().updateFavoriteStatus(recipe.id_rec, updatedFavoriteStatus)
+                            viewModel.toggleFavoriteStatus(recipe.id_rec, updatedFavoriteStatus)
                         }
                     },
                 contentScale = ContentScale.Fit,

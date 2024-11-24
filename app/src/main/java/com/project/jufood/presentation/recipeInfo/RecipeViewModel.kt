@@ -10,26 +10,26 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
-class RecipeViewModel(private val db: RecipesDatabase) : ViewModel() {
+class RecipeViewModel(private val db: RecipesDatabase) : ViewModel(), RecipeInterface {
     private val _createdRecipe = MutableStateFlow<Created?>(null)
     val createdRecipe: StateFlow<Created?> get() = _createdRecipe
 
     private val _recipe = MutableStateFlow<Recipes?>(null)
     val recipe: StateFlow<Recipes?> get() = _recipe
 
-    fun loadCreatedRecipe(recipeId: Int) {
+    override fun loadCreatedRecipe(recipeId: Int) {
         viewModelScope.launch {
             _createdRecipe.value = db.createdDao().getCreatedById(recipeId)
         }
     }
 
-    fun loadRecipe(recipeId: Int) {
+    override fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
             _recipe.value = db.recipesDao().getRecipeById(recipeId)
         }
     }
 
-    fun updateFavoriteStatus(recipeId: Int, favorite: Boolean) {
+    override fun updateFavoriteStatus(recipeId: Int, favorite: Boolean) {
         viewModelScope.launch {
             db.recipesDao().updateFavoriteStatus(recipeId, favorite)
             _recipe.value = _recipe.value?.copy(favorite = favorite)

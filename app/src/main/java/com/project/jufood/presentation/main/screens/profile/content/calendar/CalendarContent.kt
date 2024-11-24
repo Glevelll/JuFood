@@ -26,42 +26,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
-import com.project.jufood.data.local.RecipesDatabase
+import com.project.jufood.domain.util.getMonthName
+import com.project.jufood.presentation.main.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
 @Composable
-fun CalendarContent(db: RecipesDatabase) {
-    var displayDate by remember { mutableStateOf(getCurrentDateDisplay()) }
-    var queryDate by remember { mutableStateOf(getCurrentDateQuery()) }
-    val planDao = db.planDao()
-    val recipesDao = db.recipesDao()
-    val createdDao = db.createdDao()
-    val cardItems = remember { mutableStateListOf<Pair<String, Int>>() }
-    val coroutineScope = rememberCoroutineScope()
+fun CalendarContent(viewModel: MainViewModel) {
+    // Подписываемся на состояния из ViewModel
+    val displayDate by viewModel.displayDate.collectAsState()
+    val cardItems by viewModel.cardItems.collectAsState()
 
-    LaunchedEffect(queryDate) {
-        val plans = planDao.getPlansByDate(queryDate)
-        val newCardItems = mutableListOf<Pair<String, Int>>()
-        plans.forEach { plan ->
-            plan.recipesFk?.let { recipesId ->
-                val recipe = recipesDao.getRecipeById(recipesId)
-                recipe?.let { newCardItems.add(it.name to plan.id) }
-            }
-            plan.createdFk?.let { createdId ->
-                val createdRecipe = createdDao.getCreatedById(createdId)
-                createdRecipe?.let { newCardItems.add(it.name to plan.id) }
-            }
-        }
-        cardItems.clear()
-        cardItems.addAll(newCardItems)
-    }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
+        // Календарь
         AndroidView(
             factory = { context ->
                 CalendarView(context).apply {
@@ -70,8 +55,6 @@ fun CalendarContent(db: RecipesDatabase) {
                         ViewGroup.LayoutParams.WRAP_CONTENT
                     )
                     val currentDate = Calendar.getInstance()
-                    displayDate = "${currentDate.get(Calendar.DAY_OF_MONTH)} ${getMonthName(currentDate.get(Calendar.MONTH))}"
-                    queryDate = String.format("%02d.%02d", currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.MONTH) + 1)
                     setDate(currentDate.timeInMillis)
                 }
             },
@@ -79,39 +62,35 @@ fun CalendarContent(db: RecipesDatabase) {
                 it.setOnDateChangeListener { _, year, month, day ->
                     val formattedDisplayDate = "$day ${getMonthName(month)}"
                     val formattedQueryDate = String.format("%02d.%02d", day, month + 1)
-                    displayDate = formattedDisplayDate
-                    queryDate = formattedQueryDate
+                    viewModel.updateDate(formattedDisplayDate, formattedQueryDate)
                 }
             }
         )
+
+        // Отображение текущей даты
         Text(
             text = displayDate,
             modifier = Modifier.padding(start = 15.dp, bottom = 10.dp),
             fontSize = 22.sp
         )
+
+        // Список карточек
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             cardItems.forEachIndexed { index, (text, planId) ->
-                val context = LocalContext.current
                 DateCard(
                     text = text,
                     onDeleteClick = {
-                        coroutineScope.launch {
-                            val plan = planDao.getPlansByDate(queryDate).find { it.id == planId }
-                            if (plan != null) {
-                                planDao.delete(plan)
-                                cardItems.removeAt(index)
-                            }
-                        }
+                        // Удаляем план через ViewModel
+                        viewModel.deletePlan(planId)
                     },
                     onClick = {
-                        coroutineScope.launch {
-                            val plan = planDao.getPlansByDate(queryDate).find { it.id == planId }
-                            if (plan != null) {
-                                val recipeId = plan.recipesFk ?: plan.createdFk ?: -1
-                                val isCreated = plan.createdFk != null
+                        // Получаем детали плана и запускаем Activity
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val planDetails = viewModel.getPlanDetails(planId)
+                            planDetails?.let { (recipeId, isCreated) ->
                                 context.startActivity(
                                     Intent(context, RecipeActivity::class.java).apply {
                                         putExtra("recipe", recipeId)
@@ -121,7 +100,6 @@ fun CalendarContent(db: RecipesDatabase) {
                             }
                         }
                     }
-
                 )
             }
         }
@@ -164,33 +142,5 @@ private fun DateCard(text: String, onDeleteClick: () -> Unit, onClick: () -> Uni
                 modifier = Modifier.size(35.dp)
             )
         }
-    }
-}
-
-private fun getCurrentDateDisplay(): String {
-    val currentDate = Calendar.getInstance()
-    return "${currentDate.get(Calendar.DAY_OF_MONTH)} ${getMonthName(currentDate.get(Calendar.MONTH))}"
-}
-
-private fun getCurrentDateQuery(): String {
-    val currentDate = Calendar.getInstance()
-    return String.format("%02d.%02d", currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.MONTH) + 1)
-}
-
-private fun getMonthName(month: Int): String {
-    return when (month) {
-        Calendar.JANUARY -> "января"
-        Calendar.FEBRUARY -> "февраля"
-        Calendar.MARCH -> "марта"
-        Calendar.APRIL -> "апреля"
-        Calendar.MAY -> "мая"
-        Calendar.JUNE -> "июня"
-        Calendar.JULY -> "июля"
-        Calendar.AUGUST -> "августа"
-        Calendar.SEPTEMBER -> "сентября"
-        Calendar.OCTOBER -> "октября"
-        Calendar.NOVEMBER -> "ноября"
-        Calendar.DECEMBER -> "декабря"
-        else -> ""
     }
 }

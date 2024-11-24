@@ -1,10 +1,10 @@
 package com.project.jufood.data.local.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.project.jufood.data.local.entities.Recipes
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecipesDao {
@@ -12,7 +12,7 @@ interface RecipesDao {
     suspend fun insertRecipe(recipe: Recipes)
 
     @Query("SELECT * FROM recipes")
-    fun getAllRecipes(): LiveData<List<Recipes>>
+    fun getAllRecipes(): Flow<List<Recipes>>
 
     @Query("SELECT * FROM recipes WHERE id_rec = :id")
     suspend fun getRecipeById(id: Int): Recipes?
@@ -24,7 +24,7 @@ interface RecipesDao {
     suspend fun updateFavoriteStatus(recipeId: Int, favorite: Boolean)
 
     @Query("SELECT * FROM recipes WHERE favorite = 1")
-    fun getFavoriteRecipes(): LiveData<List<Recipes>>
+    fun getFavoriteRecipes(): Flow<List<Recipes>>
 
     @Query("DELETE FROM recipes")
     suspend fun deleteAllRecipes()

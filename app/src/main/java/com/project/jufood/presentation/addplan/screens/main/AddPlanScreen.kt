@@ -1,6 +1,5 @@
 package com.project.jufood.presentation.addplan.screens.main
 
-import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,12 +31,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,46 +46,21 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.project.jufood.data.local.RecipesDatabase
-import com.project.jufood.data.local.entities.Created
-import com.project.jufood.data.local.entities.Plan
-import com.project.jufood.data.local.entities.Recipes
+import com.project.jufood.presentation.addplan.AddPlanActivity
+import com.project.jufood.presentation.addplan.AddPlanViewModel
 import com.project.jufood.presentation.addplan.screens.main.components.PlanCard
-import kotlinx.coroutines.launch
 
 @Composable
-fun AddPlanScreen(activity: Activity, db: RecipesDatabase) {
+fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
     var text1 by remember { mutableStateOf(TextFieldValue("")) }
-    var selectedRecipes by remember { mutableStateOf<List<Any>>(listOf()) }
-    val filRecipes by db.recipesDao().getAllRecipes().observeAsState(listOf())
-    val favoriteRecipes by db.recipesDao().getFavoriteRecipes().observeAsState(listOf())
-    val createdRecipes by db.createdDao().getAllCreated().observeAsState(listOf())
-    val products by db.productsDao().getAllProducts().observeAsState(listOf())
-    val coroutineScope = rememberCoroutineScope()
 
-    val filteredRecipes = filRecipes.filter { recipe ->
-        recipe.ingredients.any { ingredient ->
-            products.any { product ->
-                product.name == ingredient.title
-            }
-        }
-    }
+    val filteredRecipes by viewModel.filteredRecipesByProducts.collectAsState()
+    val favoriteRecipes by viewModel.favoriteRecipes.collectAsState()
+    val createdRecipes by viewModel.createdRecipes.collectAsState()
+    val selectedRecipes by viewModel.selectedRecipes.collectAsState()
+    val buttonStates by viewModel.buttonStates.collectAsState()
 
     val allRecipes = favoriteRecipes + createdRecipes + filteredRecipes
-
-    val buttonStates = remember { mutableStateListOf<Boolean>() }
-    for (recipe in allRecipes) {
-        buttonStates.add(false)
-    }
-
-    fun toggleButtonState(index: Int) {
-        buttonStates[index] = !buttonStates[index]
-        selectedRecipes = if (buttonStates[index]) {
-            selectedRecipes + allRecipes[index]
-        } else {
-            selectedRecipes - allRecipes[index]
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -216,13 +188,13 @@ fun AddPlanScreen(activity: Activity, db: RecipesDatabase) {
                 ) {
                     PlanCard(item = recipe)
                     Button(
-                        onClick = { toggleButtonState(index) },
+                        onClick = { viewModel.toggleButtonState(index) },
                         modifier = Modifier
                             .width(180.dp)
                             .height(48.dp),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Text(text = if (buttonStates[index]) "Убрать" else "Добавить")
+                        Text(text = if (buttonStates.getOrNull(index) == true) "Убрать" else "Добавить")
                     }
                 }
             }
@@ -241,25 +213,11 @@ fun AddPlanScreen(activity: Activity, db: RecipesDatabase) {
                     return@Button
                 }
                 val selectedDate = text1.text
+
                 selectedRecipes.forEach { recipe ->
-                    val recipeId: Int = when (recipe) {
-                        is Recipes -> recipe.id_rec
-                        is Created -> recipe.id_cre
-                        else -> -1
-                    }
-                    coroutineScope.launch {
-                        when (recipe) {
-                            is Recipes -> {
-                                val plan = Plan(date = selectedDate, recipesFk = recipeId, createdFk = null)
-                                db.planDao().insert(plan)
-                            }
-                            is Created -> {
-                                val plan = Plan(date = selectedDate, recipesFk = null, createdFk = recipeId)
-                                db.planDao().insert(plan)
-                            }
-                        }
-                    }
+                    viewModel.addPlan(selectedDate, recipe)
                 }
+
                 activity.finish()
             },
             modifier = Modifier
