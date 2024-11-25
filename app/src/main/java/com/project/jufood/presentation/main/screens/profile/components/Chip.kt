@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 
 @Composable
 fun Chip(
@@ -25,8 +26,8 @@ fun Chip(
 ) {
     val isSelected = selected == title
 
-    val background = if (isSelected) Color(android.graphics.Color.parseColor("#BFD05F"))
-    else Color(android.graphics.Color.parseColor("#F4DC8C"))
+    val background = if (isSelected) Color(R.color.chip_selected)
+    else Color(R.color.chip_unselected)
 
     val contentColor = Color.Black
 

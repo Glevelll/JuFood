@@ -40,7 +40,7 @@ fun PlanCard(item: Any) {
             .size(width = 180.dp, height = 230.dp)
             .clip(RoundedCornerShape(10.dp)),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF4DC8C)
+            containerColor = Color(R.color.container)
         )
     ) {
         Box {

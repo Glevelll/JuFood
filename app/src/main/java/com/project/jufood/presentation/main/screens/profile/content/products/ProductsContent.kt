@@ -32,11 +32,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.presentation.main.MainViewModel
 
 @Composable
@@ -68,7 +70,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                         .height(55.dp)
                         .border(
                             1.dp,
-                            Color(android.graphics.Color.parseColor("#333333")),
+                            Color(R.color.border),
                             shape = RoundedCornerShape(10.dp)
                         ),
                     shape = RoundedCornerShape(10.dp),
@@ -77,14 +79,14 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                         fontSize = 18.sp
                     ),
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
-                        unfocusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
+                        focusedContainerColor = Color(R.color.background),
+                        unfocusedContainerColor = Color(R.color.background),
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                    placeholder = { Text(text = "Название продукта") }
+                    placeholder = { Text(text = stringResource(id = R.string.title_prod)) }
                 )
             }
 
@@ -102,7 +104,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                             .height(55.dp)
                             .border(
                                 1.dp,
-                                Color(android.graphics.Color.parseColor("#333333")),
+                                Color(R.color.border),
                                 shape = RoundedCornerShape(10.dp)
                             ),
                         shape = RoundedCornerShape(10.dp),
@@ -111,14 +113,14 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                             fontSize = 18.sp
                         ),
                         colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
-                            unfocusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
+                            focusedContainerColor = Color(R.color.background),
+                            unfocusedContainerColor = Color(R.color.background),
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                         ),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        placeholder = { Text(text = "дд.мм") }
+                        placeholder = { Text(text = stringResource(id = R.string.date_format)) }
                     )
                 }
             }
@@ -129,7 +131,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
-                    contentDescription = "Добавить",
+                    contentDescription = null,
                     modifier = Modifier.size(35.dp)
                 )
             }
@@ -167,7 +169,7 @@ private fun ProductCard(text1: String, text2: String, onDeleteClick: () -> Unit)
                     .clip(RoundedCornerShape(10.dp)),
                 border = BorderStroke(1.dp, Color.Black),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                    containerColor = Color(R.color.background)
                 )
             ) {
                 Text(
@@ -190,7 +192,7 @@ private fun ProductCard(text1: String, text2: String, onDeleteClick: () -> Unit)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp)),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                    containerColor = Color(R.color.background)
                 ),
                 border = BorderStroke(1.dp, Color.Black)
             ) {

@@ -19,9 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.presentation.addplan.AddPlanActivity
 import com.project.jufood.data.local.RecipesDatabase
 
@@ -39,14 +41,14 @@ fun MainScreen(context: Context) {
             modifier = Modifier
                 .padding(16.dp)
                 .size(250.dp)
-                .background(Color(android.graphics.Color.parseColor("#FFF0E1"))),
+                .background(Color(R.color.background)),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFBFD05F)
+                containerColor = Color(R.color.container)
             )
         ) {
             Text(
-                text = "Составить план",
+                text = stringResource(id = R.string.create_plan),
                 fontSize = 30.sp
             )
         }

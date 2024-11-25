@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.project.jufood.R
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.presentation.recipeInfo.screens.CreatedScreen
 import com.project.jufood.presentation.recipeInfo.screens.RecipeScreen
@@ -86,7 +87,7 @@ class RecipeActivity : ComponentActivity(), DIAware {
             )
         )
         super.onCreate(savedInstanceState)
-        window.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFF0E1")))
+        window.setBackgroundDrawableResource(R.color.background)
         val recipe = intent.getIntExtra("recipe", -1)
         val isCreated = intent.getBooleanExtra("isCreated", false)
 

@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.project.jufood.R
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.presentation.addplan.screens.main.AddPlanScreen
 import com.project.jufood.ui.theme.JuFoodTheme
@@ -28,7 +29,7 @@ class AddPlanActivity : ComponentActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.parseColor("#FFF0E1")))
+        window.setBackgroundDrawableResource(R.color.background)
         setContent {
             JuFoodTheme {
                 AddPlanScreen(this@AddPlanActivity, viewModel)

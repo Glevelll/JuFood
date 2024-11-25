@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 
 @Composable
 fun IngredientCard(text: String, count: String, onDeleteClick: () -> Unit) {
@@ -35,7 +36,7 @@ fun IngredientCard(text: String, count: String, onDeleteClick: () -> Unit) {
                 .clip(RoundedCornerShape(10.dp)),
             border = BorderStroke(1.dp, Color.Black),
             colors = CardDefaults.cardColors(
-                containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                containerColor = Color(R.color.background)
             )
         ) {
             Text(
@@ -54,7 +55,7 @@ fun IngredientCard(text: String, count: String, onDeleteClick: () -> Unit) {
                 .clip(RoundedCornerShape(10.dp)),
             border = BorderStroke(1.dp, Color.Black),
             colors = CardDefaults.cardColors(
-                containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                containerColor = Color(R.color.background)
             )
         ) {
             Text(

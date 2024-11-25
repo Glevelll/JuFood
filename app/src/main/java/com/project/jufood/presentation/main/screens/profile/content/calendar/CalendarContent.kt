@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.project.jufood.R
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
 import com.project.jufood.domain.util.getMonthName
 import com.project.jufood.presentation.main.MainViewModel
@@ -121,7 +122,7 @@ private fun DateCard(text: String, onDeleteClick: () -> Unit, onClick: () -> Uni
                 .clip(RoundedCornerShape(10.dp)),
             border = BorderStroke(1.dp, Color.Black),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFF4DC8C)
+                containerColor = Color(R.color.container)
             )
         ) {
             Text(

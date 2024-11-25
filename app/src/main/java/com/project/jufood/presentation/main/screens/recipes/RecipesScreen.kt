@@ -20,8 +20,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.data.local.utils.RecipeType
 import com.project.jufood.presentation.main.MainViewModel
 import com.project.jufood.presentation.main.screens.recipes.components.CategoryList
@@ -67,7 +69,7 @@ fun RecipesScreen(viewModel: MainViewModel, context: Context) {
     Column {
         SearchBar(onQueryChange = { searchQuery = it })
         Text(
-            text = "Категории",
+            text = stringResource(id = R.string.categories),
             modifier = Modifier
                 .padding(horizontal = 10.dp)
                 .align(Alignment.Start),
@@ -82,7 +84,7 @@ fun RecipesScreen(viewModel: MainViewModel, context: Context) {
             }
         }
         Text(
-            text = "Рецепты",
+            text = stringResource(id = R.string.recipes),
             modifier = Modifier
                 .padding(10.dp)
                 .align(Alignment.Start),
