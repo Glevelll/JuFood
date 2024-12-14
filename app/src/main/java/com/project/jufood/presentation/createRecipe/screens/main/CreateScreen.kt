@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
@@ -57,6 +58,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.data.local.Ingredients
 import com.project.jufood.data.local.entities.Created
 import com.project.jufood.domain.util.convertImageBitmapToByteArray
@@ -108,7 +110,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             ) {
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowLeft,
-                    contentDescription = "Назад",
+                    contentDescription = null,
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
@@ -118,7 +120,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
 
             }
             Text(
-                text = "Добавление рецепта",
+                text = stringResource(id = R.string.adding_recipe),
                 fontFamily = FontFamily.Default,
                 fontSize = 22.sp,
                 modifier = Modifier.align(Alignment.Center)
@@ -151,7 +153,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 )
             } ?: Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = "Добавить изображение",
+                contentDescription = null,
                 modifier = Modifier.size(48.dp),
                 tint = Color.Gray
             )
@@ -160,7 +162,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Название",
+            text = stringResource(id = R.string.title),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
@@ -194,13 +196,13 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             ),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Введите название") }
+            placeholder = { Text(text = stringResource(id = R.string.enter_title)) }
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Время приготовления",
+            text = stringResource(id = R.string.time_cooking),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
@@ -235,14 +237,14 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             ),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Время") }
+            placeholder = { Text(text = stringResource(id = R.string.time)) }
         )
 
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Ингредиенты",
+            text = stringResource(id = R.string.ingredients),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
@@ -285,7 +287,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 ),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                placeholder = { Text(text = "Введите ингредиент") }
+                placeholder = { Text(text = stringResource(id = R.string.enter_ingr)) }
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -314,7 +316,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 ),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                placeholder = { Text(text = "Кол-во") }
+                placeholder = { Text(text = stringResource(id = R.string.count)) }
             )
 
             IconButton(
@@ -330,7 +332,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Добавить",
+                    contentDescription = null,
                     modifier = Modifier.size(35.dp)
                 )
             }
@@ -339,7 +341,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Описание",
+            text = stringResource(id = R.string.description),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
@@ -373,7 +375,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             ),
             singleLine = false,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Введите описание") }
+            placeholder = { Text(text = stringResource(id = R.string.enter_desc)) }
         )
 
 
@@ -382,11 +384,11 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
         Button(
             onClick = {
                 if (text1.text.isEmpty() || text2.text.isEmpty()) {
-                    Toast.makeText(activity, "Укажите название и время", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, R.string.enter_title_and_time, Toast.LENGTH_SHORT).show()
                     return@Button
                 }
                 if (imageBitmap == null) {
-                    Toast.makeText(activity, "Добавьте изображение", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, R.string.add_image, Toast.LENGTH_SHORT).show()
                     return@Button
                 }
                 val ingredientsList = ingredients.map { Ingredients(it.first, it.second) }
@@ -405,7 +407,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 containerColor = Color(0xFFBFD05F)
             )
         ) {
-            Text(text = "Добавить")
+            Text(text = stringResource(id = R.string.add))
         }
     }
 }

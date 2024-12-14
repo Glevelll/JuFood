@@ -34,12 +34,14 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.LocalWindowInsets
+import com.project.jufood.R
 import com.project.jufood.presentation.recipeInfo.RecipeViewModel
 import kotlinx.coroutines.launch
 
@@ -101,8 +103,9 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
                 item {
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = "Ингредиенты",
-                        modifier = Modifier.padding(horizontal = 16.dp)
+                        text = stringResource(id = R.string.ingredients),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         textAlign = TextAlign.Start,
                         style = TextStyle(fontSize = 26.sp),
@@ -113,7 +116,8 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
 
                 currentRecipe.ingredients.forEachIndexed { index, ingredient ->
                     item {
-                        Row(modifier = Modifier.padding(horizontal = 16.dp)
+                        Row(modifier = Modifier
+                            .padding(horizontal = 16.dp)
                             .fillMaxWidth()) {
                             Text(
                                 text = "${ingredient.title}:",
@@ -131,8 +135,9 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
                 item {
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = "Описание",
-                        modifier = Modifier.padding(horizontal = 16.dp)
+                        text = stringResource(id = R.string.description),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         textAlign = TextAlign.Start,
                         style = TextStyle(fontSize = 26.sp),
@@ -144,7 +149,8 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = currentRecipe.description,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp, vertical = 10.dp)
                             .fillMaxWidth()
                             .padding(bottom = 40.dp),
                         textAlign = TextAlign.Start,

@@ -19,9 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.presentation.addplan.AddPlanActivity
 import com.project.jufood.data.local.RecipesDatabase
 
@@ -46,7 +48,7 @@ fun MainScreen(context: Context) {
             )
         ) {
             Text(
-                text = "Составить план",
+                text = stringResource(id = R.string.create_plan),
                 fontSize = 30.sp
             )
         }

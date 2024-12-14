@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
 import com.project.jufood.data.local.entities.Recipes
 import com.project.jufood.presentation.main.MainViewModel

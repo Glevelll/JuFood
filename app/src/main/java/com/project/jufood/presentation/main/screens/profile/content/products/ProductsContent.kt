@@ -32,11 +32,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.presentation.main.MainViewModel
 
 @Composable
@@ -84,7 +86,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                    placeholder = { Text(text = "Название продукта") }
+                    placeholder = { Text(text = stringResource(id = R.string.title_prod)) }
                 )
             }
 
@@ -118,7 +120,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                         ),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        placeholder = { Text(text = "дд.мм") }
+                        placeholder = { Text(text = stringResource(id = R.string.date_format)) }
                     )
                 }
             }
@@ -129,7 +131,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
-                    contentDescription = "Добавить",
+                    contentDescription = null,
                     modifier = Modifier.size(35.dp)
                 )
             }

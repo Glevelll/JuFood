@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
@@ -46,6 +47,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.jufood.R
 import com.project.jufood.presentation.addplan.AddPlanActivity
 import com.project.jufood.presentation.addplan.AddPlanViewModel
 import com.project.jufood.presentation.addplan.screens.main.components.PlanCard
@@ -82,7 +84,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
             ) {
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowLeft,
-                    contentDescription = "Назад",
+                    contentDescription = null,
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
@@ -91,7 +93,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                 )
             }
             Text(
-                text = "Составить план",
+                text = stringResource(id = R.string.create_plan),
                 fontFamily = FontFamily.Default,
                 fontSize = 22.sp,
                 modifier = Modifier
@@ -102,7 +104,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Укажите дату",
+            text = stringResource(id = R.string.enter_date),
             fontFamily = FontFamily.Default,
             fontSize = 22.sp,
             modifier = Modifier
@@ -145,7 +147,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    placeholder = { Text(text = "дд.мм") }
+                    placeholder = { Text(text = stringResource(id = R.string.date_format)) }
                 )
             }
         }
@@ -162,7 +164,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Добавьте рецепты",
+                    text = stringResource(id = R.string.add_recipes),
                     fontFamily = FontFamily.Default,
                     fontSize = 22.sp,
                     modifier = Modifier.weight(1f)
@@ -170,7 +172,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
 
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowRight,
-                    contentDescription = "Добавить рецепт",
+                    contentDescription = null,
                     modifier = Modifier
                         .size(50.dp)
                 )
@@ -194,7 +196,9 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                             .height(48.dp),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Text(text = if (buttonStates.getOrNull(index) == true) "Убрать" else "Добавить")
+                        Text(text = if (buttonStates.getOrNull(index) == true)
+                            stringResource(id = R.string.delete)
+                        else stringResource(id = R.string.add))
                     }
                 }
             }
@@ -205,11 +209,11 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
         Button(
             onClick = {
                 if (text1.text.isEmpty()) {
-                    Toast.makeText(activity, "Введите дату", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, R.string.enter_date, Toast.LENGTH_SHORT).show()
                     return@Button
                 }
                 if (text1.text.length != 5) {
-                    Toast.makeText(activity, "Введите корректную дату в формате дд.мм", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, R.string.enter_correct_date, Toast.LENGTH_SHORT).show()
                     return@Button
                 }
                 val selectedDate = text1.text
@@ -229,7 +233,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                 containerColor = Color(0xFFBFD05F)
             )
         ) {
-            Text(text = "Составить")
+            Text(text = stringResource(id = R.string.create))
         }
     }
 }
