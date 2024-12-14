@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">JuFood</string>
+    <string name="ingredients">Ингредиенты</string>
+    <string name="description">Описание</string>
+    <string name="enter_title">Введите название</string>
+    <string name="enter_date">Введите дату</string>
+    <string name="enter_correct_date">Введите корректную дату в формате дд.мм</string>
+    <string name="categories">Категории</string>
+    <string name="recipes">Рецепты</string>
+    <string name="calendar">Календарь</string>
+    <string name="products">Продукты</string>
+    <string name="favorite">Избранное</string>
+    <string name="mine">Мои рецепты</string>
+    <string name="profile">Профиль</string>
+    <string name="title_prod">Название продукта</string>
+    <string name="date_format">дд.мм</string>
+    <string name="create_plan">Составить план</string>
+    <string name="add_recipes">Добавьте рецепты</string>
+    <string name="delete">Убрать</string>
+    <string name="add">Добавить</string>
+    <string name="create">Составить</string>
+    <string name="adding_recipe">Добавление рецепта</string>
+    <string name="title">Название</string>
+    <string name="time_cooking">Время приготовления</string>
+    <string name="time">Время</string>
+    <string name="enter_ingr">Введите ингредиент</string>
+    <string name="count">Кол-во</string>
+    <string name="enter_desc">Введите описание</string>
+    <string name="enter_title_and_time">Укажите название и время</string>
+    <string name="add_image">Добавьте изображение</string>
 </resources>

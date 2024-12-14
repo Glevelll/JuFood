@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.project.jufood.R
 import com.project.jufood.presentation.recipeInfo.RecipeActivity
 import com.project.jufood.domain.util.getMonthName
 import com.project.jufood.presentation.main.MainViewModel

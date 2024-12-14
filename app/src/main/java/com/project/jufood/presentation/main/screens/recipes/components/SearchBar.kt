@@ -19,7 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.project.jufood.R
 
 @Composable
 fun SearchBar(onQueryChange: (String) -> Unit) {
@@ -49,7 +51,7 @@ fun SearchBar(onQueryChange: (String) -> Unit) {
                     Color(android.graphics.Color.parseColor("#333333")),
                     shape = RoundedCornerShape(10.dp)
                 ),
-            placeholder = { Text("Введите название") },
+            placeholder = { Text(stringResource(id = R.string.enter_title)) },
             shape = RoundedCornerShape(10.dp),
             singleLine = true,
             colors = TextFieldDefaults.colors(
@@ -61,7 +63,7 @@ fun SearchBar(onQueryChange: (String) -> Unit) {
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Filled.Search,
-                    contentDescription = "Введите название",
+                    contentDescription = null,
                     modifier = Modifier.padding(8.dp)
                 )
             }

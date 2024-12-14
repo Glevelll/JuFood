@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.project.jufood.R
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.data.local.entities.Created
 import com.project.jufood.data.local.entities.Products
@@ -156,15 +157,15 @@ class MainViewModel(private val db: RecipesDatabase) : ViewModel() {
         viewModelScope.launch {
             // Валидация
             if (_text1.value.text.isEmpty()) {
-                Toast.makeText(activity, "Введите название продукта", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.enter_title, Toast.LENGTH_SHORT).show()
                 return@launch
             }
             if (_text2.value.text.isEmpty()) {
-                Toast.makeText(activity, "Введите дату", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.enter_date, Toast.LENGTH_SHORT).show()
                 return@launch
             }
             if (_text2.value.text.length != 5) {
-                Toast.makeText(activity, "Введите корректную дату в формате дд.мм", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.enter_correct_date, Toast.LENGTH_SHORT).show()
                 return@launch
             }
 

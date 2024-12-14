@@ -33,12 +33,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.LocalWindowInsets
+import com.project.jufood.R
 import com.project.jufood.domain.util.convertByteArrayToImageBitmap
 import com.project.jufood.presentation.recipeInfo.RecipeViewModel
 
@@ -101,7 +103,7 @@ fun CreatedScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel)
                 item {
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = "Ингредиенты",
+                        text = stringResource(id = R.string.ingredients),
                         modifier = Modifier.padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         textAlign = TextAlign.Start,
@@ -131,7 +133,7 @@ fun CreatedScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel)
                 item {
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = "Описание",
+                        text = stringResource(id = R.string.description),
                         modifier = Modifier.padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         textAlign = TextAlign.Start,
