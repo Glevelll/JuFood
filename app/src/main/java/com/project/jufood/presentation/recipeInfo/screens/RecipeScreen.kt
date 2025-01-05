@@ -62,7 +62,11 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
         } else {
             White
         }
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+        ) {
             LazyColumn(
                 contentPadding = PaddingValues(top = LocalWindowInsets.current.statusBars.top.dp)
             ) {
@@ -163,7 +167,7 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
 
             FloatingActionButton(
                 onClick = { activity.finish() },
-                containerColor = androidx.compose.ui.graphics.Color(Color.parseColor("#F4DC8C")),
+                containerColor = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier
                     .padding(start = 15.dp, top = 40.dp)
                     .align(Alignment.TopStart)
@@ -182,7 +186,7 @@ fun RecipeScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel) 
                         viewModel.updateFavoriteStatus(currentRecipe.id_rec, updatedFavoriteStatus)
                     }
                 },
-                containerColor = androidx.compose.ui.graphics.Color(Color.parseColor("#F4DC8C")),
+                containerColor = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier
                     .padding(end = 15.dp, top = 40.dp)
                     .align(Alignment.TopEnd)

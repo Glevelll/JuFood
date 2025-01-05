@@ -30,8 +30,6 @@ class MainActivity : ComponentActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        window.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFF0E1")))
         setContent {
             JuFoodTheme {
                 AppNavigation(viewModel, this, this@MainActivity)

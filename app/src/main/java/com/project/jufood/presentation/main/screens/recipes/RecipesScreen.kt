@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -75,7 +76,7 @@ fun RecipesScreen(viewModel: MainViewModel, context: Context) {
                 .padding(horizontal = 10.dp)
                 .align(Alignment.Start),
             fontSize = 24.sp,
-            color = Color.Black
+            color = Color.White
         )
         CategoryList(categories = RecipeType.entries) { category ->
             if (selectedCategories.contains(category)) {
@@ -90,7 +91,7 @@ fun RecipesScreen(viewModel: MainViewModel, context: Context) {
                 .padding(10.dp)
                 .align(Alignment.Start),
             fontSize = 24.sp,
-            color = Color.Black
+            color = Color.White
         )
 
         LazyColumn(

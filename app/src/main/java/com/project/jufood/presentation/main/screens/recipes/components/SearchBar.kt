@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -32,7 +33,7 @@ fun SearchBar(onQueryChange: (String) -> Unit) {
             .fillMaxWidth()
             .padding(horizontal = 10.dp)
             .padding(vertical = 16.dp)
-            .background(Color(android.graphics.Color.parseColor("#FFF0E1")))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         TextField(
             value = query,
@@ -48,15 +49,20 @@ fun SearchBar(onQueryChange: (String) -> Unit) {
                 )
                 .border(
                     1.dp,
-                    Color(android.graphics.Color.parseColor("#333333")),
+                    Color.White,
                     shape = RoundedCornerShape(10.dp)
                 ),
-            placeholder = { Text(stringResource(id = R.string.enter_title)) },
+            placeholder = {
+                Text(
+                    stringResource(id = R.string.enter_title),
+                    color = Color.White
+                )
+            },
             shape = RoundedCornerShape(10.dp),
             singleLine = true,
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
-                unfocusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
@@ -64,7 +70,9 @@ fun SearchBar(onQueryChange: (String) -> Unit) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = null,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier
+                        .padding(8.dp),
+                    tint = Color.White
                 )
             }
         )

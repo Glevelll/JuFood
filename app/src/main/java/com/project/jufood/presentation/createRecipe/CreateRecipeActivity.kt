@@ -29,7 +29,6 @@ class CreateRec : ComponentActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.parseColor("#FFF0E1")))
         setContent {
             JuFoodTheme {
                 CreateScreen(this@CreateRec, viewModel)

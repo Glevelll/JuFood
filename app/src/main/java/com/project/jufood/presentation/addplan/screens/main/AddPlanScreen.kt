@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -67,6 +68,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -89,7 +91,8 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                         .size(50.dp)
                         .clickable {
                             activity.finish()
-                        }
+                        },
+                    tint = Color.White
                 )
             }
             Text(
@@ -97,7 +100,8 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                 fontFamily = FontFamily.Default,
                 fontSize = 22.sp,
                 modifier = Modifier
-                    .align(Alignment.Center)
+                    .align(Alignment.Center),
+                color = Color.White
             )
         }
 
@@ -109,13 +113,14 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
             fontSize = 22.sp,
             modifier = Modifier
                 .align(Alignment.Start)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
+            color = Color.White
         )
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(android.graphics.Color.parseColor("#FFF0E1")))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -131,7 +136,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                         .height(55.dp)
                         .border(
                             1.dp,
-                            Color(android.graphics.Color.parseColor("#333333")),
+                            Color.White,
                             shape = RoundedCornerShape(10.dp)
                         ),
                     shape = RoundedCornerShape(10.dp),
@@ -140,14 +145,19 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                         fontSize = 18.sp
                     ),
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
-                        unfocusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    placeholder = { Text(text = stringResource(id = R.string.date_format)) }
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.date_format),
+                            color = Color.White
+                        )
+                    }
                 )
             }
         }
@@ -167,14 +177,16 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                     text = stringResource(id = R.string.add_recipes),
                     fontFamily = FontFamily.Default,
                     fontSize = 22.sp,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    color = Color.White
                 )
 
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowRight,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(50.dp),
+                    tint = Color.White
                 )
             }
         }
@@ -230,7 +242,7 @@ fun AddPlanScreen(activity: AddPlanActivity, viewModel: AddPlanViewModel) {
                 .padding(start = 5.dp, end = 5.dp, bottom = 5.dp),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFBFD05F)
+                containerColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Text(text = stringResource(id = R.string.create))

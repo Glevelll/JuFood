@@ -12,6 +12,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +36,7 @@ fun IngredientCard(text: String, count: String, onDeleteClick: () -> Unit) {
                 .clip(RoundedCornerShape(10.dp)),
             border = BorderStroke(1.dp, Color.Black),
             colors = CardDefaults.cardColors(
-                containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                containerColor = MaterialTheme.colorScheme.background
             )
         ) {
             Text(
@@ -54,7 +55,7 @@ fun IngredientCard(text: String, count: String, onDeleteClick: () -> Unit) {
                 .clip(RoundedCornerShape(10.dp)),
             border = BorderStroke(1.dp, Color.Black),
             colors = CardDefaults.cardColors(
-                containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                containerColor = MaterialTheme.colorScheme.background
             )
         ) {
             Text(

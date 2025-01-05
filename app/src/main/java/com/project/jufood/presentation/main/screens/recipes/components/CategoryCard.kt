@@ -20,6 +20,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +41,7 @@ fun CategoryCard(category: RecipeType, onCategoryClicked: () -> Unit) {
                 onCategoryClicked()
             },
         shape = RoundedCornerShape(10.dp),
-        border = BorderStroke(2.dp, if (isSelected.value) Color.Black else Color.Transparent)
+        border = BorderStroke(3.dp, if (isSelected.value) Color.Black else Color.Transparent)
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
@@ -54,12 +56,13 @@ fun CategoryCard(category: RecipeType, onCategoryClicked: () -> Unit) {
             )
             Text(
                 text = category.name,
-                color = Color.Black,
+                color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(horizontal = 8.dp),
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
             )
         }
     }

@@ -22,6 +22,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -70,7 +72,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                         .height(55.dp)
                         .border(
                             1.dp,
-                            Color(android.graphics.Color.parseColor("#333333")),
+                            Color.White,
                             shape = RoundedCornerShape(10.dp)
                         ),
                     shape = RoundedCornerShape(10.dp),
@@ -79,14 +81,19 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                         fontSize = 18.sp
                     ),
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
-                        unfocusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                    placeholder = { Text(text = stringResource(id = R.string.title_prod)) }
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.title_prod),
+                            color = Color.White
+                        )
+                    }
                 )
             }
 
@@ -104,7 +111,7 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                             .height(55.dp)
                             .border(
                                 1.dp,
-                                Color(android.graphics.Color.parseColor("#333333")),
+                                Color.White,
                                 shape = RoundedCornerShape(10.dp)
                             ),
                         shape = RoundedCornerShape(10.dp),
@@ -113,8 +120,8 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                             fontSize = 18.sp
                         ),
                         colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
-                            unfocusedContainerColor = Color(android.graphics.Color.parseColor("#FFF0E1")),
+                            focusedContainerColor = MaterialTheme.colorScheme.background,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.background,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                         ),
@@ -132,7 +139,8 @@ fun ProductsContent(viewModel: MainViewModel, activity: Activity) {
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = null,
-                    modifier = Modifier.size(35.dp)
+                    modifier = Modifier.size(35.dp),
+                    tint = Color.White
                 )
             }
         }
@@ -167,10 +175,10 @@ private fun ProductCard(text1: String, text2: String, onDeleteClick: () -> Unit)
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp)),
-                border = BorderStroke(1.dp, Color.Black),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
-                )
+                    containerColor = MaterialTheme.colorScheme.secondary
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
                 Text(
                     text = text1,
@@ -192,9 +200,9 @@ private fun ProductCard(text1: String, text2: String, onDeleteClick: () -> Unit)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp)),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(android.graphics.Color.parseColor("#FFF0E1"))
+                    containerColor = MaterialTheme.colorScheme.secondary
                 ),
-                border = BorderStroke(1.dp, Color.Black)
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
                 Text(
                     text = text2,
@@ -214,7 +222,8 @@ private fun ProductCard(text1: String, text2: String, onDeleteClick: () -> Unit)
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = null,
-                modifier = Modifier.size(35.dp)
+                modifier = Modifier.size(35.dp),
+                tint = Color.White
             )
         }
     }
