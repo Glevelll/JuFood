@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,7 +31,9 @@ import com.project.jufood.data.local.RecipesDatabase
 @Composable
 fun MainScreen(context: Context) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Button(
@@ -41,10 +44,10 @@ fun MainScreen(context: Context) {
             modifier = Modifier
                 .padding(16.dp)
                 .size(250.dp)
-                .background(Color(R.color.background)),
+                .background(MaterialTheme.colorScheme.background),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(R.color.container)
+                containerColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Text(

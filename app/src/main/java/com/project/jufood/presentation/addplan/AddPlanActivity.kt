@@ -29,7 +29,6 @@ class AddPlanActivity : ComponentActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setBackgroundDrawableResource(R.color.background)
         setContent {
             JuFoodTheme {
                 AddPlanScreen(this@AddPlanActivity, viewModel)

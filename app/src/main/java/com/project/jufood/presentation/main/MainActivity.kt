@@ -31,8 +31,6 @@ class MainActivity : ComponentActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        window.setBackgroundDrawableResource(R.color.background)
         setContent {
             JuFoodTheme {
                 AppNavigation(viewModel, this, this@MainActivity)

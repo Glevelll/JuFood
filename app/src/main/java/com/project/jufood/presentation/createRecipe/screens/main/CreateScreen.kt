@@ -9,6 +9,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -45,6 +47,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -93,6 +96,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -115,7 +119,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                         .size(50.dp)
                         .clickable {
                             activity.finish()
-                        }
+                        },
+                    tint = Color.White
                 )
 
             }
@@ -123,7 +128,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 text = stringResource(id = R.string.adding_recipe),
                 fontFamily = FontFamily.Default,
                 fontSize = 22.sp,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
+                color = Color.White
             )
         }
 
@@ -139,8 +145,9 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                     }
                     launcher.launch(galleryIntent)
                 }
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
+                .padding(16.dp)
+                .background(MaterialTheme.colorScheme.secondary),
+            contentAlignment = Alignment.Center,
         ) {
             imageBitmap?.let { bitmap ->
                 Image(
@@ -166,7 +173,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color.White
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -180,7 +188,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 .height(55.dp)
                 .border(
                     1.dp,
-                    Color(R.color.border),
+                    Color.White,
                     shape = RoundedCornerShape(10.dp)
                 ),
             shape = RoundedCornerShape(10.dp),
@@ -189,14 +197,19 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 fontSize = 18.sp
             ),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(R.color.background),
-                unfocusedContainerColor = Color(R.color.background),
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             ),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = stringResource(id = R.string.enter_title)) }
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.enter_title),
+                    color = Color.White
+                )
+            }
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -206,7 +219,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color.White
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -220,7 +234,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 .width(200.dp)
                 .border(
                     1.dp,
-                    Color(R.color.border),
+                    Color.White,
                     shape = RoundedCornerShape(10.dp)
                 )
                 .align(Alignment.Start),
@@ -230,14 +244,19 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 fontSize = 18.sp
             ),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(R.color.background),
-                unfocusedContainerColor = Color(R.color.background),
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             ),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = stringResource(id = R.string.time)) }
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.time),
+                    color = Color.White
+                )
+            }
         )
 
 
@@ -248,7 +267,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color.White
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -271,7 +291,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                     .padding(horizontal = 5.dp)
                     .height(55.dp)
                     .border(
-                        BorderStroke(1.dp, Color(R.color.border)),
+                        BorderStroke(1.dp, Color.White),
                         shape = RoundedCornerShape(10.dp)
                     ),
                 shape = RoundedCornerShape(10.dp),
@@ -280,14 +300,19 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                     fontSize = 18.sp
                 ),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(R.color.background),
-                    unfocusedContainerColor = Color(R.color.background),
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 ),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                placeholder = { Text(text = stringResource(id = R.string.enter_ingr)) }
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.enter_ingr),
+                        color = Color.White
+                    )
+                }
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -300,7 +325,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                     .padding(horizontal = 5.dp)
                     .height(55.dp)
                     .border(
-                        BorderStroke(1.dp, Color(R.color.border)),
+                        BorderStroke(1.dp, Color.White),
                         shape = RoundedCornerShape(10.dp)
                     ),
                 shape = RoundedCornerShape(10.dp),
@@ -309,14 +334,19 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                     fontSize = 18.sp
                 ),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(R.color.background),
-                    unfocusedContainerColor = Color(R.color.background),
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 ),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                placeholder = { Text(text = stringResource(id = R.string.count)) }
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.count),
+                        color = Color.White
+                    )
+                }
             )
 
             IconButton(
@@ -333,7 +363,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    modifier = Modifier.size(35.dp)
+                    modifier = Modifier.size(35.dp),
+                    tint = Color.White
                 )
             }
         }
@@ -345,7 +376,8 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 5.dp),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color.White
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -359,7 +391,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 .height(200.dp)
                 .border(
                     1.dp,
-                    Color(R.color.border),
+                    Color.White,
                     shape = RoundedCornerShape(10.dp)
                 ),
             shape = RoundedCornerShape(10.dp),
@@ -368,14 +400,19 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 fontSize = 18.sp
             ),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(R.color.background),
-                unfocusedContainerColor = Color(R.color.background),
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             ),
             singleLine = false,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = stringResource(id = R.string.enter_desc)) }
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.enter_desc),
+                    color = Color.White
+                )
+            }
         )
 
 
@@ -404,7 +441,7 @@ fun CreateScreen(activity: Activity, viewModel: CreateRecipeViewModel) {
                 .padding(start = 5.dp, end = 5.dp, bottom = 5.dp),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(R.color.container)
+                containerColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Text(text = stringResource(id = R.string.add))

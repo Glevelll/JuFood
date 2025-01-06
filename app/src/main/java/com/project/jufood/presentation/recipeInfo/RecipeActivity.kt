@@ -87,7 +87,6 @@ class RecipeActivity : ComponentActivity(), DIAware {
             )
         )
         super.onCreate(savedInstanceState)
-        window.setBackgroundDrawableResource(R.color.background)
         val recipe = intent.getIntExtra("recipe", -1)
         val isCreated = intent.getBooleanExtra("isCreated", false)
 

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,7 +60,11 @@ fun CreatedScreen(activity: Activity, recipeId: Int, viewModel: RecipeViewModel)
                 convertByteArrayToImageBitmap(byteArray)
             }
         }
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
             LazyColumn(
                 contentPadding = PaddingValues(top = LocalWindowInsets.current.statusBars.top.dp)
             ) {

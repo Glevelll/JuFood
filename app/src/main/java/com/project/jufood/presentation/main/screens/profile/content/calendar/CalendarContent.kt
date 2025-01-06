@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -56,7 +57,7 @@ fun CalendarContent(viewModel: MainViewModel) {
                         ViewGroup.LayoutParams.WRAP_CONTENT
                     )
                     val currentDate = Calendar.getInstance()
-                    setDate(currentDate.timeInMillis)
+                    date = currentDate.timeInMillis
                 }
             },
             update = {
@@ -72,7 +73,8 @@ fun CalendarContent(viewModel: MainViewModel) {
         Text(
             text = displayDate,
             modifier = Modifier.padding(start = 15.dp, bottom = 10.dp),
-            fontSize = 22.sp
+            fontSize = 22.sp,
+            color = Color.White
         )
 
         // Список карточек
@@ -120,9 +122,9 @@ private fun DateCard(text: String, onDeleteClick: () -> Unit, onClick: () -> Uni
                 .weight(1f)
                 .clickable { onClick() }
                 .clip(RoundedCornerShape(10.dp)),
-            border = BorderStroke(1.dp, Color.Black),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(R.color.container)
+                containerColor = MaterialTheme.colorScheme.secondary
             )
         ) {
             Text(

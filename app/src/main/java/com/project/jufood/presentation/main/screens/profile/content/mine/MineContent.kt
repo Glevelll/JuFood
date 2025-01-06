@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -81,7 +82,7 @@ fun MineCard(recipe: Created, context: Context, viewModel: MainViewModel) {
                 context.startActivity(intent)
             },
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF4DC8C)
+            containerColor = MaterialTheme.colorScheme.secondary
         )
     ) {
         Box {

@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -85,7 +86,7 @@ fun FavoriteCard(recipe: Recipes, context: Context, viewModel: MainViewModel) {
                 context.startActivity(intent)
             },
         colors = CardDefaults.cardColors(
-            containerColor = Color(R.color.container)
+            containerColor = MaterialTheme.colorScheme.secondary
         )
     ) {
         Box {
