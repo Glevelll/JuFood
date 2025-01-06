@@ -10,6 +10,7 @@ import com.project.jufood.ui.theme.JuFoodTheme
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.project.jufood.R
 import com.project.jufood.presentation.createRecipe.screens.main.CreateScreen
 import org.kodein.di.DI
 import org.kodein.di.DIAware

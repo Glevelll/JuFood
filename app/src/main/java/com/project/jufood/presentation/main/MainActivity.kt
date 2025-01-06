@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.project.jufood.R
 import com.project.jufood.data.local.RecipesDatabase
 import com.project.jufood.presentation.main.navigation.AppNavigation
 import com.project.jufood.ui.theme.JuFoodTheme
